@@ -1,0 +1,132 @@
+services:
+ webservice_master:
+  image: tomcat:9-jdk8-openjdk
+  ports:
+   - "8081:8080"
+  networks:
+   - my_network
+  depends_on:
+      - my_db
+  volumes:
+   - my-webservice-master-mount:/usr/local/tomcat/webapps
+  restart: always
+
+ webserviceSlaveOne:
+  image: tomcat:9-jdk8-openjdk
+  ports:
+   - "8082:8080"
+  networks:
+   - my_network
+  depends_on:
+      - my_db
+      - my_linux_slave_one
+  volumes:
+   - my-webservice-slave-one-mount:/usr/local/tomcat/webapps
+  restart: always
+
+ my_db:
+  image: mysql:8.0
+  ports:
+   - "3308:3306"
+  networks:
+   - my_network
+  volumes:
+   - my-db-mount:/var/lib/mysql
+   - /root/mydocker_files/configs/init.sql:/docker-entrypoint-initdb.d/init.sql
+   - /root/mydocker_files/configs/my.cnf:/etc/my.cnf
+  environment:
+      MYSQL_DATABASE: RS_DEV
+      MYSQL_USER: presql
+      MYSQL_ROOT_PASSWORD: Rupee@123
+      MYSQL_PASSWORD: Rupee@123
+  #restart: always
+
+ my_redis:
+  image: redis:4.0.1
+  ports:
+   - "6377:6379"
+  networks:
+   - my_network
+  volumes:
+   - my-redis-mount:/data
+  restart: always
+
+ my_linux_master:
+  image: rockylinux:8
+  privileged: true
+  sysctls:
+   net.ipv4.ip_forward: 1
+   net.core.somaxconn: 1024
+  ports:
+   - "1992:22"
+  networks:
+   - my_network
+  volumes:
+   - my-linux-master-mount:/root/
+  command: >
+      /bin/bash -c "dnf -y install openssh-server ncurses findutils libnsl procps-ng mysql-libs &&
+                    ssh-keygen -A &&
+                    echo 'root:password' | chpasswd &&
+                    /usr/sbin/sshd -D "
+  #restart: always
+
+ my_linux_slave_one:
+  image: rockylinux:8
+  privileged: true
+  sysctls:
+   net.ipv4.ip_forward: 1
+   net.core.somaxconn: 1024
+  ports:
+   - "1994:22"
+  networks:
+   - my_network
+  volumes:
+   - my-linux-slave-one-mount:/root/
+  command: >
+      /bin/bash -c "dnf -y install openssh-server ncurses findutils libnsl procps-ng mysql-libs &&
+                    ssh-keygen -A &&
+                    echo 'root:password' | chpasswd &&
+                    /usr/sbin/sshd -D "
+  #restart: always
+
+volumes:
+ my-webservice-master-mount:
+  driver: local
+  driver_opts:
+   type: none
+   o: bind
+   device: /root/mydocker_files/webservice_master/
+ my-webservice-slave-one-mount:
+  driver: local
+  driver_opts:
+   type: none
+   o: bind
+   device: /root/mydocker_files/webservice_slave/
+ my-db-mount:
+  driver: local
+  driver_opts:
+   type: none
+   o: bind
+   device: /root/mydocker_files/mysql_files/
+ my-redis-mount:
+  driver: local
+  driver_opts:
+   type: none
+   o: bind
+   device: /root/mydocker_files/my_redis_data/
+ my-linux-master-mount:
+  driver: local
+  driver_opts:
+   type: none
+   o: bind
+   device: /root/mydocker_files/my_linux_master/
+ my-linux-slave-one-mount:
+  driver: local
+  driver_opts:
+   type: none
+   o: bind
+   device: /root/mydocker_files/my_linux_slave/
+
+networks:
+ my_network: 
+
