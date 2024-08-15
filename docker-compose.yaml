@@ -49,7 +49,7 @@ services:
   networks:
    - my_network
   volumes:
-   - my-redis-mount:/data
+   - ./my-redis-mount:/data
   restart: always
 
  my_linux_master:
