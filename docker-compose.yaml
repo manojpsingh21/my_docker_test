@@ -32,8 +32,9 @@ services:
    - my_network
   volumes:
    - my-db-mount:/var/lib/mysql
-   - /root/mydocker_files/configs/init.sql:/docker-entrypoint-initdb.d/init.sql
-   - /root/mydocker_files/configs/my.cnf:/etc/my.cnf
+   - ./configs/init.sql:/docker-entrypoint-initdb.d/init.sql
+   - ./dump:/docker-entrypoint-initdb.d  
+   - ./configs/my.cnf:/etc/my.cnf
   environment:
       MYSQL_DATABASE: RS_DEV
       MYSQL_USER: presql
@@ -95,37 +96,37 @@ volumes:
   driver_opts:
    type: none
    o: bind
-   device: /root/mydocker_files/webservice_master/
+   device: ./webservice_master/
  my-webservice-slave-one-mount:
   driver: local
   driver_opts:
    type: none
    o: bind
-   device: /root/mydocker_files/webservice_slave/
+   device: ./webservice_slave/
  my-db-mount:
   driver: local
   driver_opts:
    type: none
    o: bind
-   device: /root/mydocker_files/mysql_files/
+   device: ./mysql_files/
  my-redis-mount:
   driver: local
   driver_opts:
    type: none
    o: bind
-   device: /root/mydocker_files/my_redis_data/
+   device: ./my_redis_data/
  my-linux-master-mount:
   driver: local
   driver_opts:
    type: none
    o: bind
-   device: /root/mydocker_files/my_linux_master/
+   device: ./my_linux_master/
  my-linux-slave-one-mount:
   driver: local
   driver_opts:
    type: none
    o: bind
-   device: /root/mydocker_files/my_linux_slave/
+   device: ./my_linux_slave/
 
 networks:
  my_network: 
