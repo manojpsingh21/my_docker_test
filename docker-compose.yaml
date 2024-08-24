@@ -36,7 +36,7 @@ services:
    #  - "~/Documents/dumps/Dump20240824:/docker-entrypoint-initdb.d"
   environment:
       MYSQL_DATABASE: RS_DEV
-      #MYSQL_USER: mysql
+      MYSQL_USER: presql
       MYSQL_ROOT_PASSWORD: Rupee@123
       MYSQL_PASSWORD: Rupee@123
   deploy:
