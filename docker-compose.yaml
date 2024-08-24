@@ -32,14 +32,19 @@ services:
    - my_network
   volumes:
    - my-db-mount:/var/lib/mysql
-   - ./configs/init.sql:/docker-entrypoint-initdb.d/init.sql
-   - ./dump:/docker-entrypoint-initdb.d  
-   - ./configs/my.cnf:/etc/my.cnf
+   - "~/my_docker_test/configs/init.sql:/docker-entrypoint-initdb.d/init.sql"
+   #  - "~/Documents/dumps/Dump20240824:/docker-entrypoint-initdb.d"
   environment:
       MYSQL_DATABASE: RS_DEV
-      MYSQL_USER: presql
+      #MYSQL_USER: mysql
       MYSQL_ROOT_PASSWORD: Rupee@123
       MYSQL_PASSWORD: Rupee@123
+  deploy:
+      resources:
+        limits:
+          memory: 2G  # Adjust as needed
+        reservations:
+          memory: 1G  # Adjust as needed      
   #restart: always
 
  my_redis:
