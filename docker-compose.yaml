@@ -40,6 +40,7 @@ services:
       MYSQL_USER: presql
       MYSQL_ROOT_PASSWORD: Rupee@123
       MYSQL_PASSWORD: Rupee@123
+  command: --max_connections=6000
   deploy:
       resources:
         limits:
