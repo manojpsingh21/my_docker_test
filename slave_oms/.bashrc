@@ -2,7 +2,7 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-        . /etc/bashrc
+	. /etc/bashrc
 fi
 
 export HISTTIMEFORMAT='%F %T'   #### AMAR ####
@@ -24,7 +24,7 @@ alias   wss="cd /home/rsapp4m/Application/ApacheTomcat/WSLogs/"
 alias   cls="clear"
 alias   l="ls -lst"
 alias   ll="ls -lrt"
-alias   rm="echo 'You FOOL You are caught.... this will be reported to your GL'"
+alias  	rm="echo 'You FOOL You are caught.... this will be reported to your GL'"
 alias   dir="ls -l |grep ^d"
 alias   files="ls -l | grep -v '^d'"
 alias   links="ls -l | grep  '^l'"
@@ -69,7 +69,7 @@ alias   s="cd $HOME/Application/Exec/Run ;  $HOME/Application/Exec/ShellScripts/
 alias   m="cd $HOME/Application/Makefile/; vi makefile.linux64;cd -"
 alias   mk="cd $HOME/Application/Makefile/"
 alias   ob="cd $HOME/Application/Objects/"
-alias   mt="cd $HOME/Application/Exec/Run ;  $HOME/Application/Exec/MonitoringTools/Menuopr.sh"
+alias 	mt="cd $HOME/Application/Exec/Run ;  $HOME/Application/Exec/MonitoringTools/Menuopr.sh"
 alias   p="cd Proc"
 alias   S="cd ../SQLC"
 alias   C="cd ../C"
@@ -86,7 +86,7 @@ alias   shr="ShowUserRelay | wc -l"
 alias   rm="rm -i"
 alias   at="cd $HOME/Application/Source/AdvTrad"
 alias   oec="cd $HOME/Application/Source/Servers/Orders/NSE/Equity/C"
-alias   oes="cd $HOME/Application/Source/Servers/Orders/NSE/Equity/SQLC"
+alias	oes="cd $HOME/Application/Source/Servers/Orders/NSE/Equity/SQLC"
 alias   odc="cd $HOME/Application/Source/Servers/Orders/NSE/Derivative/C"
 alias   ods="cd $HOME/Application/Source/Servers/Orders/NSE/Derivative/SQLC"
 alias   oxc="cd $HOME/Application/Source/Servers/Orders/MCX/Commodity/C"
@@ -98,7 +98,7 @@ alias   tds="cd $HOME/Application/Source/Servers/Trades/NSE/Derivative/SQLC"
 alias   txc="cd $HOME/Application/Source/Servers/Trades/MCX/Commodity/C"
 alias   txs="cd $HOME/Application/Source/Servers/Trades/MCX/Commodity/SQLC"
 alias   gt="cd $HOME/Git"
-alias   xm="cd $HOME/Application/Source/ExchMappers/C"
+alias	xm="cd $HOME/Application/Source/ExchMappers/C"
 alias   in="cd $HOME/Application/Source/Interfaces/C"
 alias   pf="ps -eaf | grep"
 alias   nec="cd $HOME/Application/Source/Connect/NSE/Equity/C"
@@ -107,8 +107,8 @@ alias   ncc="cd $HOME/Application/Source/Connect/NSE/Currency/C"
 alias   bec="cd $HOME/Application/Source/Connect/BSE/Equity/C"
 alias   bdc="cd $HOME/Application/Source/Connect/BSE/Derivative/C"
 alias   bcc="cd $HOME/Application/Source/Connect/BSE/Currency/C"
-alias   nmfc="cd $HOME/Application/Source/Servers/Orders/NSE/MFSS/C"
-alias   nmfs="cd $HOME/Application/Source/Servers/Orders/NSE/MFSS/SQLC"
+alias	nmfc="cd $HOME/Application/Source/Servers/Orders/NSE/MFSS/C"
+alias	nmfs="cd $HOME/Application/Source/Servers/Orders/NSE/MFSS/SQLC"
 alias   rr="cd $HOME/Application/Exec/RRService/"
 alias   rs="cd $HOME/Application/ApacheTomcat/webapps/RupeeSeedWS/WEB-INF/classes/rupeeservice"
 alias   rc="cd $HOME/Application/ApacheTomcat/webapps/RupeeSeedWS/WEB-INF/classes/rupeecontrollers"
@@ -175,3 +175,5 @@ PS2=">"
 
 SHELL=/bin/bash
 export SHELL;
+
+
