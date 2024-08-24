@@ -30,8 +30,7 @@ services:
    - "3308:3306"
   networks:
    - my_network
-  user:
-   - root
+  user: root
   volumes:
    - my-db-mount:/var/lib/mysql
    - "~/my_docker_test/configs/init.sql:/docker-entrypoint-initdb.d/init.sql"
