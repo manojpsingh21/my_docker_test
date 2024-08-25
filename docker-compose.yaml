@@ -71,6 +71,7 @@ services:
    - my_network
   volumes:
    - my-linux-master-mount:/root/
+   - "~/my_docker_test/miscs/libmysqlclient.so.18:/lib64/"
   command: >
       /bin/bash -c "dnf -y install openssh-server ncurses findutils libnsl procps-ng mysql-libs &&
                     ssh-keygen -A &&
