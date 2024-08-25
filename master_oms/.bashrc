@@ -12,6 +12,7 @@ export HISTTIMEFORMAT='%F %T'   #### AMAR ####
 . $HOME/rupeeseed.env
 #. ./rupeeseed.env
 
+
 PATH=.:$PATH
 PATH=$PATH:.:$HOME/
 PATH=$PATH:$HOME/Application/Exec/ShellScripts/:/usr/include/sys:$HOME/redis-4.0.9/Installed/bin
