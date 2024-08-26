@@ -69,13 +69,17 @@ services:
    - "1992:22"
   networks:
    - my_network
+  environment:
+   - TERM=xterm
   volumes:
    - my-linux-master-mount:/root/
+   - "~/my_docker_test/configs/sysctl.conf:/etc/sysctl.conf"
+   - "~/my_docker_test/miscs/AutoStartSystem.sh:~/Application/Exec/ShellScripts/AutoStartSystem.sh"
    - "~/my_docker_test/miscs/libmysqlclient.so.18:/lib64/"
   command: >
-      /bin/bash -c "dnf -y install openssh-server ncurses findutils libnsl procps-ng mysql-libs &&
+      /bin/bash -c "dnf -y install openssh-server dos2unix ncurses findutils libnsl procps-ng mysql-libs &&
                     ssh-keygen -A &&
-                    echo 'root:password' | chpasswd &&
+                    echo 'root:password' | chpasswd && dos2unix ~/.rupeeseed.env ~/.bashrc && source ~/.bashrc && ~/Application/Exec/ShellScripts/AutoStartSystem.sh 
                     /usr/sbin/sshd -D "
   #restart: always
 
