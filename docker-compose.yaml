@@ -79,7 +79,7 @@ services:
   command: >
       /bin/bash -c "dnf -y install openssh-server dos2unix ncurses findutils libnsl procps-ng mysql-libs &&
                     ssh-keygen -A &&
-                    echo 'root:password' | chpasswd && cp ~/libmysqlclient.so.18 /lib64/ && dos2unix ~/rupeeseed.env ~/.bashrc && source ~/.bashrc && ~/Application/Exec/ShellScripts/AutoStartSystem.sh 
+                    echo 'root:password' | chpasswd && cp ~/libmysqlclient.so.18 /lib64/ && dos2unix ~/entrypoint_master.sh && ~/entrypoint_master.sh && 
                     /usr/sbin/sshd -D "
   #restart: always
 
