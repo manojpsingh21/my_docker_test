@@ -79,8 +79,7 @@ services:
   command: >
       /bin/bash -c "dnf -y install openssh-server dos2unix ncurses findutils libnsl procps-ng mysql-libs &&
                     ssh-keygen -A &&
-                    echo 'root:password' | chpasswd && cp ~/libmysqlclient.so.18 /lib64/ && cp ~/AutoStartSystem.sh ~/Application/Exec/ShellScripts/ && dos2unix ~/entrypoint_master.sh && ~/entrypoint_master.sh && 
-                    /usr/sbin/sshd -D "
+                    echo 'root:password' | chpasswd && cp ~/libmysqlclient.so.18 /lib64/ && cp ~/AutoStartSystem.sh ~/Application/Exec/ShellScripts/ && dos2unix ~/entrypoint_master.sh && ~/entrypoint_master.sh && /usr/sbin/sshd -D "
   #restart: always
 
  my_linux_slave_one:
@@ -95,11 +94,12 @@ services:
    - my_network
   volumes:
    - my-linux-slave-one-mount:/root/
+   - "~/my_docker_test/configs/sysctl.conf:/etc/sysctl.conf"
   command: >
-      /bin/bash -c "dnf -y install openssh-server ncurses findutils libnsl procps-ng mysql-libs &&
+      /bin/bash -c "dnf -y install openssh-server dos2unix ncurses findutils libnsl procps-ng mysql-libs &&
                     ssh-keygen -A &&
-                    echo 'root:password' | chpasswd &&
-                    /usr/sbin/sshd -D "
+                    echo 'root:password' | chpasswd && cp ~/libmysqlclient.so.18 /lib64/ && cp ~/AutoStartSystem.sh ~/Application/Exec/ShellScripts/ && dos2unix ~/entrypoint_master.sh && ~/entrypoint_master.sh && /usr/sbin/sshd -D "
+
   #restart: always
 
 volumes:

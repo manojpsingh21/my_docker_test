@@ -8,8 +8,7 @@ pwd
 echo "sucessfully stop OMS"
 
 sleep 10
-
-cd $HOME/Application/Exec/ShellScripts
+cd $HOME/Application/Exec/MonitoringTools/
 ./StartApplication.sh
 echo "sucessfully start OMS"
 
