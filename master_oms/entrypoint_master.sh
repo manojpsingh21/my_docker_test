@@ -1,4 +1,4 @@
-dos2unix ~/rupeeseed.env ~/.bashrc ~/Application/Exec/ShellScripts/AutoStartSystem.sh 
+dos2unix ~/rupeeseed.env ~/.bashrc ~/Application/Exec/ShellScripts/AutoStartSystem.sh
 source ~/.bashrc
 cd ~/Application/Exec/MonitoringTools/
 find . -type f -exec dos2unix {} \;
