@@ -7,9 +7,14 @@ services:
    - my_network
   depends_on:
       - my_db
+      - my_redis
   volumes:
    - my-webservice-master-mount:/usr/local/tomcat/webapps
    - "~/my_docker_test/webservice_master/RupeeSeedWS/WEB-INF/classes/application.yml:/usr/local/tomcat/webapps/RupeeSeedWS/WEB-INF/classes/application.yml"
+  command: >
+      /bin/bash -c "dnf -y install openssh-server vi dos2unix ncurses findutils libnsl procps-ng &&
+                    ssh-keygen -A &&
+                    echo 'root:password' | chpasswd  && /usr/sbin/sshd -D "
   restart: always
 
  webserviceSlaveOne:
@@ -20,10 +25,15 @@ services:
    - my_network
   depends_on:
       - my_db
+      - my_redis
       - my_linux_slave_one
   volumes:
    - my-webservice-slave-one-mount:/usr/local/tomcat/webapps
    - "~/my_docker_test/webservice_slave/RupeeSeedWS/WEB-INF/classes/application.yml:/usr/local/tomcat/webapps/RupeeSeedWS/WEB-INF/classes/application.yml"
+  command: >
+      /bin/bash -c "dnf -y install openssh-server vi dos2unix ncurses findutils libnsl procps-ng &&
+                    ssh-keygen -A &&
+                    echo 'root:password' | chpasswd  && /usr/sbin/sshd -D "
   restart: always
 
  my_db:
@@ -71,6 +81,9 @@ services:
    - "1992:22"
   networks:
    - my_network
+  depends_on:
+   - my_db
+   - my_redis
   environment:
    - TERM=xterm
   volumes:
@@ -79,7 +92,7 @@ services:
 #   - "~/my_docker_test/miscs/AutoStartSystem.sh:/root/Application/Exec/ShellScripts/AutoStartSystem.sh"
   # - "~/my_docker_test/miscs/libmysqlclient.so.18:/lib64/"
   command: >
-      /bin/bash -c "dnf -y install openssh-server dos2unix ncurses findutils libnsl procps-ng mysql-libs &&
+      /bin/bash -c "dnf -y install openssh-server vi dos2unix ncurses findutils libnsl procps-ng mysql-libs &&
                     ssh-keygen -A &&
                     echo 'root:password' | chpasswd && cp ~/libmysqlclient.so.18 /lib64/ && cp ~/AutoStartSystem.sh ~/Application/Exec/ShellScripts/ && dos2unix ~/entrypoint_master.sh && ~/entrypoint_master.sh && /usr/sbin/sshd -D "
   #restart: always
@@ -94,11 +107,14 @@ services:
    - "1994:22"
   networks:
    - my_network
+  depends_on:
+    - my_db
+    - my_redis
   volumes:
    - my-linux-slave-one-mount:/root/
    - "~/my_docker_test/configs/sysctl.conf:/etc/sysctl.conf"
   command: >
-      /bin/bash -c "dnf -y install openssh-server dos2unix ncurses findutils libnsl procps-ng mysql-libs &&
+      /bin/bash -c "dnf -y install openssh-server vi dos2unix ncurses findutils libnsl procps-ng mysql-libs &&
                     ssh-keygen -A &&
                     echo 'root:password' | chpasswd && cp ~/libmysqlclient.so.18 /lib64/ && cp ~/AutoStartSystem.sh ~/Application/Exec/ShellScripts/ && dos2unix ~/entrypoint_master.sh && ~/entrypoint_master.sh && /usr/sbin/sshd -D "
 
