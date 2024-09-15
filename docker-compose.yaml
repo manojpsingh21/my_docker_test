@@ -9,6 +9,7 @@ services:
       - my_db
   volumes:
    - my-webservice-master-mount:/usr/local/tomcat/webapps
+   - "~/my_docker_test/webservice_master/RupeeSeedWS/WEB-INF/classes/application.yml:/usr/local/tomcat/webapps/RupeeSeedWS/WEB-INF/classes/application.yml"
   restart: always
 
  webserviceSlaveOne:
@@ -22,6 +23,7 @@ services:
       - my_linux_slave_one
   volumes:
    - my-webservice-slave-one-mount:/usr/local/tomcat/webapps
+   - "~/my_docker_test/webservice_slave/RupeeSeedWS/WEB-INF/classes/application.yml:/usr/local/tomcat/webapps/RupeeSeedWS/WEB-INF/classes/application.yml"
   restart: always
 
  my_db:

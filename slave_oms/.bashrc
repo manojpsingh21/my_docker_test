@@ -170,7 +170,7 @@ ulimit -c 50000
 
 #set -o vi
 
-PS1="`echo RS_DEV_MASTER`:\$PWD > "
+PS1="`echo RS_DEV_SLAVE1`:\$PWD > "
 PS2=">"
 
 SHELL=/bin/bash
