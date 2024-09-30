@@ -1,0 +1,200 @@
+
+---
+grails:
+    profile: web
+    codegen:
+        defaultPackage: rupeewsmysql
+    spring:
+        transactionManagement:
+            proxies: false
+    gorm:
+        reactor:
+            # Whether to translate GORM events into Reactor events
+            # Disabled by default for performance reasons
+            events: false
+info:
+    app:
+        name: 'RupeeWSMySql'
+        version: '0.1'
+        grailsVersion: '3.3.0'
+spring:
+    main:
+        banner-mode: "off"
+    groovy:
+        template:
+            check-template-location: false
+
+# Spring Actuator Endpoints are Disabled by Default
+endpoints:
+    enabled: false
+    jmx:
+        enabled: true
+
+---
+server:
+    port:  9069
+    contextPath: '/RupeeSeedWS'
+---
+grails:
+    mime:
+        disable:
+            accept:
+                header:
+                    userAgents:
+                        - Gecko
+                        - WebKit
+                        - Presto
+                        - Trident
+        types:
+            all: '*/*'
+            atom: application/atom+xml
+            css: text/css
+            csv: text/csv
+            form: application/x-www-form-urlencoded
+            html:
+              - text/html
+              - application/xhtml+xml
+            js: text/javascript
+            json:
+              - application/json
+              - text/json
+            multipartForm: multipart/form-data
+            pdf: application/pdf
+            rss: application/rss+xml
+            text: text/plain
+            hal:
+              - application/hal+json
+              - application/hal+xml
+            xml:
+              - text/xml
+              - application/xml
+    urlmapping:
+        cache:
+            maxsize: 1000
+    controllers:
+        defaultScope: singleton
+    converters:
+        encoding: UTF-8
+    views:
+        default:
+            codec: html
+        gsp:
+            encoding: UTF-8
+            htmlcodec: xml
+            codecs:
+                expression: html
+                scriptlets: html
+                taglib: none
+                staticparts: none
+    #config:
+     #   locations: "classpath:config_param.properties"
+endpoints:
+    jmx:
+        unique-names: true
+---
+rsconfig:
+    cfg:
+        # true if session needs to be checked, false incase no session validation required
+        session: false
+        # true if data needs to be encrypted/decrypted, false if encryption/decryption not required
+        encryption: true
+        #encryption: true
+        # Note : if encryption is true then session also needs to be true
+        sessionTimeout: 300
+        connectToOms: false
+        connectToRedis: true
+    txn:
+        exchange: # remove below sub options to disable check
+            - "NSE"
+            - "BSE"
+            - "MCX"
+        segment:  # remove below sub options to disable check
+            - "E"
+            - "D"
+            - "C"
+            - "M"
+        product:  # remove below sub options to disable check
+            - "C" #CNC
+            - "M" #MARGIN
+            - "I" #Intraday
+            - "H" #Hybrid
+            - "F" #MTF
+            - "V" #CO
+            - "B" #BO
+        source:   # remove below sub options to disable check
+            - "M" #MobileWeb
+            - "I" #iOS
+            - "N" #Android
+            - "S" #TWS
+            - "O" #TWS
+            - "A" #Admin
+            - "H" #Admin
+    system:
+        omsIp: "127.0.0.1"
+        omsPort: 8882
+        sockMin: 100
+        sockMax: 200
+        sockTimeOut: 30000
+        seqMax: 29000
+        brokerCode: 00000
+        groupId: 1
+        redisIp : "my_redis"
+        redisPort: 6379
+        redisBlockWhenExhausted : true
+        redisMaxWaitMillis : "5000"   # redis max wait in milli seconds
+        redisTestWhileIdle : true   # check connection while connection is in idle state
+        CSVPATH : "CSV_files/"
+
+
+---
+hibernate:
+    cache:
+        queries: false
+        use_second_level_cache: false
+        use_query_cache: false
+---
+dataSources:
+    dataSource:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        dbCreate: update
+        #url: jdbc:mysql://127.0.0.1:3306/eq_oms?allowMultiQueries=true&autoReconnect=true&maxAllowedPacket=102400&zeroDateTimeBehavior=convertToNull
+        url: jdbc:mysql://my_db:3306/RS_DEV?allowMultiQueries=true&autoReconnect=true&maxAllowedPacket=102400&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false
+        #url: jdbc:mysql://10.23.0.227:3306/Paytm_28?allowMultiQueries=true&autoReconnect=true&maxAllowedPacket=102400&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false
+        #url: jdbc:mysql://180.179.25.24:3306/LIVE_REPLICA_21?allowMultiQueries=true&autoReconnect=true&maxAllowedPacket=102400
+        username: presql
+        password: Rupee@123 #uatmysql
+        properties:
+            minEvictableIdleTimeMillis: 1800000
+            timeBetweenEvictionRunsMillis: 1800000
+            numTestsPerEvictionRun: 3
+            testOnBorrow: true
+            testWhileIdle: true
+            testOnReturn: true
+            validationQuery: "SELECT now()"
+            initialSize: 1
+
+    MsSql:
+            driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            dbCreate: update
+            #url: jdbc:sqlserver://35.154.188.149:8082;databaseName=AnalyticalUAT;
+            #url: jdbc:mysql://180.179.25.24:3306/LIVE_REPLICA_21?allowMultiQueries=true&autoReconnect=true&maxAllowedPacket=102400
+            username: db_strange
+            password: Rsall@2012 #uatmysql
+            properties:
+                minEvictableIdleTimeMillis: 1800000
+                timeBetweenEvictionRunsMillis: 1800000
+                numTestsPerEvictionRun: 3
+                testOnBorrow: true
+                testWhileIdle: true
+                testOnReturn: true
+                initialSize: 1
+    InMemory:
+        driverClassName: org.h2.Driver
+        dbCreate: update
+        url: jdbc:h2:mem:inMemDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE;mode=mysql;
+        pooled : true
+        username: rupee
+        password: rupee
+   #     properties:
+   #        jmxEnabled: true
+           #initialSize: 5
