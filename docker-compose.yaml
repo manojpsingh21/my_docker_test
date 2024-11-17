@@ -10,7 +10,7 @@ services:
       - my_redis
   volumes:
    - my-webservice-master-mount:/usr/local/tomcat/webapps
-   - "~/my_docker_test/webservice_master/RupeeSeedWS/WEB-INF/classes/application.yml:/usr/local/tomcat/webapps/RupeeSeedWS/WEB-INF/classes/application.yml"
+   - "./webservice_master/RupeeSeedWS/WEB-INF/classes/application.yml:/usr/local/tomcat/webapps/RupeeSeedWS/WEB-INF/classes/application.yml"
   command: >
       /bin/bash -c "dnf -y install openssh-server vi dos2unix ncurses findutils libnsl procps-ng &&
                     ssh-keygen -A &&
@@ -29,7 +29,7 @@ services:
       - my_linux_slave_one
   volumes:
    - my-webservice-slave-one-mount:/usr/local/tomcat/webapps
-   - "~/my_docker_test/webservice_slave/RupeeSeedWS/WEB-INF/classes/application.yml:/usr/local/tomcat/webapps/RupeeSeedWS/WEB-INF/classes/application.yml"
+   - "./webservice_slave/RupeeSeedWS/WEB-INF/classes/application.yml:/usr/local/tomcat/webapps/RupeeSeedWS/WEB-INF/classes/application.yml"
   command: >
       /bin/bash -c "dnf -y install openssh-server vi dos2unix ncurses findutils libnsl procps-ng &&
                     ssh-keygen -A &&
@@ -45,7 +45,7 @@ services:
   user: root
   volumes:
    - my-db-mount:/var/lib/mysql
-   - "~/my_docker_test/configs/init.sql:/docker-entrypoint-initdb.d/init.sql"
+   - "./configs/init.sql:/docker-entrypoint-initdb.d/init.sql"
    #  - "~/Documents/dumps/Dump20240824:/docker-entrypoint-initdb.d"
   environment:
       MYSQL_DATABASE: RS_DEV
@@ -88,9 +88,9 @@ services:
    - TERM=xterm
   volumes:
    - my-linux-master-mount:/root/
-   - "~/my_docker_test/configs/sysctl.conf:/etc/sysctl.conf"
-#   - "~/my_docker_test/miscs/AutoStartSystem.sh:/root/Application/Exec/ShellScripts/AutoStartSystem.sh"
-  # - "~/my_docker_test/miscs/libmysqlclient.so.18:/lib64/"
+   - "./configs/sysctl.conf:/etc/sysctl.conf"
+#   - "./miscs/AutoStartSystem.sh:/root/Application/Exec/ShellScripts/AutoStartSystem.sh"
+  # - "./miscs/libmysqlclient.so.18:/lib64/"
   command: >
       /bin/bash -c "dnf -y install openssh-server vi dos2unix ncurses findutils libnsl procps-ng mysql-libs &&
                     ssh-keygen -A &&
@@ -112,7 +112,7 @@ services:
     - my_redis
   volumes:
    - my-linux-slave-one-mount:/root/
-   - "~/my_docker_test/configs/sysctl.conf:/etc/sysctl.conf"
+   - "./configs/sysctl.conf:/etc/sysctl.conf"
   command: >
       /bin/bash -c "dnf -y install openssh-server vi dos2unix ncurses findutils libnsl procps-ng mysql-libs &&
                     ssh-keygen -A &&
