@@ -3,37 +3,49 @@ services:
   image: tomcat:9-jdk8-openjdk
   ports:
    - "8081:8080"
+   - "1999:22"
   networks:
    - my_network
   depends_on:
       - my_db
       - my_redis
+  environment:
+      - DEBIAN_FRONTEND=noninteractive
   volumes:
    - my-webservice-master-mount:/usr/local/tomcat/webapps
    - "./webservice_master/RupeeSeedWS/WEB-INF/classes/application.yml:/usr/local/tomcat/webapps/RupeeSeedWS/WEB-INF/classes/application.yml"
+   - "./configs/sshd_config:/etc/ssh/sshd_config"
   command: >
-      /bin/bash -c "dnf -y install openssh-server vi dos2unix ncurses findutils libnsl procps-ng &&
-                    ssh-keygen -A &&
-                    echo 'root:password' | chpasswd  && /usr/sbin/sshd -D "
+    /bin/bash -c "apt-get update && apt-get -y install openssh-server vim dos2unix libncurses5 libncursesw5 findutils libnsl2 procps && \
+      mkdir -p /run/sshd && \
+      ssh-keygen -A && \
+      echo 'root:password' | chpasswd && \
+      /usr/sbin/sshd -D"
   restart: always
 
  webserviceSlaveOne:
   image: tomcat:9-jdk8-openjdk
   ports:
    - "8082:8080"
+   - "1980:22"
   networks:
    - my_network
   depends_on:
       - my_db
       - my_redis
       - my_linux_slave_one
+  environment:
+      - DEBIAN_FRONTEND=noninteractive
   volumes:
    - my-webservice-slave-one-mount:/usr/local/tomcat/webapps
    - "./webservice_slave/RupeeSeedWS/WEB-INF/classes/application.yml:/usr/local/tomcat/webapps/RupeeSeedWS/WEB-INF/classes/application.yml"
+   - "./configs/sshd_config:/etc/ssh/sshd_config"
   command: >
-      /bin/bash -c "dnf -y install openssh-server vi dos2unix ncurses findutils libnsl procps-ng &&
-                    ssh-keygen -A &&
-                    echo 'root:password' | chpasswd  && /usr/sbin/sshd -D "
+     /bin/bash -c "apt-get update && apt-get -y install openssh-server vim dos2unix libncurses5 libncursesw5 findutils libnsl2 procps && \
+      mkdir -p /run/sshd && \
+      ssh-keygen -A && \
+      echo 'root:password' | chpasswd && \
+      /usr/sbin/sshd -D" 
   restart: always
 
  my_db:
