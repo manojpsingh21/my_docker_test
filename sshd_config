@@ -1,0 +1,4 @@
+# SSHD configuration
+
+PermitRootLogin yes  # Allow root login (not recommended for production)
+PasswordAuthentication yes  # Enable password authentication
