@@ -56,7 +56,7 @@ git clone https://github.com/manojpsingh21/my_docker_test.git
 cp ./my_docker_test/AutoStartSystem.sh ./my_docker_test/master_oms/.bashrc ./my_docker_test/master_oms/.License.ini ./my_docker_test/master_oms/rupeeseed.env  ./my_docker_test/master_oms/entrypoint_master.sh ./my_linux_master/
 cp ./my_docker_test/AutoStartSystem.sh ./my_docker_test/slave_oms/.bashrc ./my_docker_test/slave_oms/.License.ini ./my_docker_test/slave_oms/rupeeseed.env   ./my_docker_test/slave_oms/entrypoint_master.sh ./my_linux_slave/
 
-cp ./my_docker_test/init.sql ./my_docker_test/my.cnf ./configs/
+cp ./my_docker_test/init.sql ./my_docker_test/my.cnf ./my_docker_test/sshd_config ./configs/
 mv ./my_docker_test/docker-compose.yaml ./
 cp  ./my_docker_test/libmysqlclient.so.18  ./my_linux_master/
 cp  ./my_docker_test/libmysqlclient.so.18  ./my_linux_slave/
